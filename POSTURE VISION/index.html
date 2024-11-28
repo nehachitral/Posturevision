@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posture Vision</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quattrocento&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quattrocento', serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .triangle-logo {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            position: relative;
+            margin-right: 10px;
+        }
+        .triangle-logo::before,
+        .triangle-logo::after,
+        .triangle-logo .dot {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #000;
+            border-radius: 50%;
+        }
+        .triangle-logo::before {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .triangle-logo::after {
+            bottom: 0;
+            left: 0;
+        }
+        .triangle-logo .dot {
+            bottom: 0;
+            right: 0;
+        }
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        header nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            transition: color 0.3s, transform 0.3s;
+        }
+        header nav a:hover {
+            color: #00cc66;
+            transform: scale(1.1);
+        }
+        .hero-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px;
+            background-color: #f9f9f9;
+            margin-top: -30px;
+        }
+        .hero-section .content {
+            max-width: 60%;
+            font-size: 25px;
+        }
+        .hero-section h1 {
+            font-size: 80px;
+        }
+        .hero-section button {
+            padding: 15px 25px;
+            margin-right: 10px;
+            font-size: 18px;
+            background-color: #00cc66;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .hero-section button:hover {
+            background-color: #008f4b;
+        }
+        .hero-section img {
+            max-width: 50%; /* Increased the size */
+            height: auto;
+            margin-left: -30px; /* Shifted image towards the left */
+        }
+        .features-section {
+            padding: 30px;
+            text-align: center;
+        }
+        .features-section h2 {
+            font-size: 40px;
+        }
+        .features-section p {
+            font-size: 18px;
+            color: grey;
+        }
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        .features .feature-card {
+            max-width: 300px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .features .feature-card:hover,
+        .features .feature-card:focus {
+            background-color: #f0f0f0; /* Light grey when clicked or hovered */
+        }
+        .features .feature-card img {
+            margin-bottom: 20px;
+        }
+        .features .feature-card h3 {
+            margin-bottom: 10px;
+        }
+        .features .feature-card p {
+            margin-bottom: 20px;
+        }
+        .features .feature-card button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .features .feature-card button:hover {
+            background-color: #555;
+        }
+        .full-screen-image {
+        display: flex;
+        justify-content: center; /* Horizontal alignment */
+        align-items: center; /* Vertical alignment */
+        width: 100%;
+        height: 55vh; /* Full screen height */
+        background-color: #ffffff; /* Optional background color */
+    }
+
+    .full-screen-image-stand{
+        display: flex;
+        justify-content: center; /* Horizontal alignment */
+        align-items: center; /* Vertical alignment */
+        width: 100%;
+        height: 80vh; /* Full screen height */
+        background-color: #ffffff; /* Optional background color */
+    }
+    .full-screen-image-pose{
+        display: flex;
+        width: 100%;
+        height: 80vh; /* Full screen height */
+        background-color: #ffffff; 
+        justify-content: center; /* Horizontal alignment */
+        align-items: center; 
+
+    }
+    .full-screen-image img {
+        max-width: 120%; /* Prevents the image from exceeding the screen width */
+        max-height: 100%; /* Prevents the image from exceeding the screen height */
+         /* Ensures the image is fully visible within its container */
+    }
+    .improve-posture {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffe599; /* Light yellow background */
+        padding: 50px 20px;
+        text-align: center;
+        margin-top: 70px;
+    }
+
+    .improve-posture h2 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .improve-posture button {
+        padding: 15px 30px;
+        font-size: 18px;
+        background-color: #333; /* Dark background for button */
+        color: white; /* White text */
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .improve-posture button:hover {
+        background-color: #555; /* Slightly lighter on hover */
+        transform: scale(1.05); /* Slightly enlarge the button on hover */
+    }
+
+    .improve-posture button:active {
+        background-color: #000; /* Darker on click */
+    }
+    .footer {
+        background-color: #333; /* Dark background */
+        color: #ccc; /* Light text */
+        padding: 40px 20px;
+    }
+
+    .footer-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .footer-logo {
+        flex: 1;
+        margin-right: 20px;
+        text-align: left;
+    }
+
+    .footer-logo .triangle-logo {
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .footer-logo .triangle-logo {
+        position: relative;
+        width: 20px;
+        height: 20px;
+    }
+
+    .footer-logo .triangle-logo::before,
+    .footer-logo .triangle-logo::after,
+    .footer-logo .triangle-logo .dot {
+        content: '';
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+    .footer-logo .triangle-logo::before {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .footer-logo .triangle-logo::after {
+        bottom: 0;
+        left: 0;
+    }
+
+    .footer-logo .triangle-logo .dot {
+        bottom: 0;
+        right: 0;
+    }
+
+    .footer-logo p {
+        font-size: 14px;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .footer-links {
+        display: flex;
+        flex: 3;
+        justify-content: space-between;
+    }
+
+    .footer-links h4 {
+        font-size: 16px;
+        margin-bottom: 10px;
+        color: #fff; /* Bright heading text */
+    }
+
+    .footer-links ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-links ul li {
+        margin-bottom: 8px;
+    }
+
+    .footer-links ul li a {
+        text-decoration: none;
+        color: #ccc; /* Light text */
+        transition: color 0.3s ease;
+    }
+
+    .footer-links ul li a:hover {
+        color: #fff; /* Brighten on hover */
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <div class="triangle-logo">
+                <span class="dot"></span>
+            </div>
+            <div class="logo">PostureVision</div>
+        </div>
+        <nav>
+            <a href="about.html">About</a>
+            <a href="products.html">Products</a>
+            <a href="contact.html">Contact</a>
+            <a href="faq.html">FAQ</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="content">
+            <h1>Introducing Our Posture Vision</h1>
+            <p>Experience the revolutionary posture vision technology that combines fitness, yoga, and real-time analysis to help you achieve optimal posture.</p>
+            <button onclick="window.location.href='products.html'">Get Started</button>
+            <button onclick="window.location.href='about.html'">Learn More</button>
+        </div>
+        <img src="assets/landing page.png" alt="Posture Hero Image">
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2>Elevate Your Posture</h2>
+        <p>Unlock the Power of Posture: Our innovative platform integrates advanced motion tracking.</p>
+        <div class="features">
+            <div class="feature-card">
+                <h3>Posture Perfection</h3>
+                <img src="assets/image1.png" alt="Posture Perfection" width="100">
+                <p>Achieve a Balanced Physique: Our real-time posture analysis provides detailed insights.</p>
+                <button onclick="window.location.href='posture.html'">Try It Now</button>
+            </div>
+            <div class="feature-card">
+                <h3>Boost Your Potential</h3>
+                <img src="assets/image2.png" alt="Boost Potential" width="100">
+                <p>Transform Your Body and Mind with expert guidance and advanced tools.</p>
+                <button onclick="window.location.href='potential.html'">Learn More</button>
+            </div>
+            <div class="feature-card">
+                <h3>Elevate Your Wellness</h3>
+                <img src="assets/image3.png" alt="Elevate Wellness" width="100">
+                <p>Personalized Posture Coaching: Discover a better version of yourself.</p>
+                <button onclick="window.location.href='wellness.html'">Get Started</button>
+            </div>
+        </div>
+    </section>
+    
+  <!-- Full-Screen Image Section -->
+   <section class="full-screen-image">
+    <img src="assets/image.png" alt="Full Screen Image">
+  </section>
+
+  <!-- Full-Screen Image Section -->
+  <section class="full-screen-image-pose">
+    <img src="assets/pose.png" alt="Full Screen Image">
+  </section>
+
+  <!-- Full-Screen Image Section -->
+  <section class="full-screen-image-stand">
+    <img src="assets/standing.png" alt="Full Screen Image">
+  </section>
+
+  <!-- Full-Screen Image Section -->
+  <section class="full-screen-image-pose">
+    <img src="assets/wellness.png" alt="Full Screen Image">
+  </section>
+
+  <!-- Improve Your Posture Section -->
+<section class="improve-posture">
+    <h2>Improve Your Posture</h2>
+    <button onclick="window.location.href='get-started.html'">Get Started</button>
+</section>
+
+<!-- Full-Screen Image Section -->
+<section class="full-screen-image-pose">
+    <img src="assets/end.png" alt="Full Screen Image">
+  </section>
+
+  <!-- Footer Section -->
+<footer class="footer">
+    <div class="footer-container">
+        <!-- Logo and Copyright -->
+        <div class="footer-logo">
+            <div class="triangle-logo">
+                <span class="dot"></span>
+            </div>
+            <p>© 2024 PostureVision, Inc.<br>All rights reserved.</p>
+        </div>
+        
+        <!-- Footer Links -->
+        <div class="footer-links">
+            <div>
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Videos</a></li>
+                    <li><a href="#">Guides</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Live Chat</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Feedback</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
